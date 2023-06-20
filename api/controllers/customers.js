@@ -1,6 +1,6 @@
 import { db } from '../db.js'
 
-export const getPedido = (_, res) => {
+export const getAllCustomers = (_, res) => {
   const q = 'SELECT city, COUNT(*) AS total FROM pedidos GROUP BY city'
 
   db.query(q, (err, data) => {
@@ -10,7 +10,7 @@ export const getPedido = (_, res) => {
   })
 }
 
-export const addPedido = (req, res) => {
+export const addCustomers = (req, res) => {
   const q =
     'INSERT INTO pedidos(`name_product`, `description`, `amount_product`, `total_order`, `cliente` ) VALUES(?)'
 
@@ -29,7 +29,7 @@ export const addPedido = (req, res) => {
   })
 }
 
-export const updatePedido = (req, res) => {
+export const updateCustomers = (req, res) => {
   const q =
     'UPDATE pedidos SET `name_product` = ?, `description` = FROM pedidos INNER JOIN finalizados ON pedidos.id = finalizados.id ? WHERE `id` = ?'
 
@@ -42,7 +42,7 @@ export const updatePedido = (req, res) => {
   })
 }
 
-export const deletePedido = (req, res) => {
+export const deleteCustomers = (req, res) => {
   const q = 'DELETE FROM pedidos WHERE `id` = ?'
 
   db.query(q, [req.params.id], err => {

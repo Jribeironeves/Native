@@ -1,6 +1,5 @@
 import express from 'express'
-import produtosRoutes from './routes/produtos.js'
-import pedidoRoutes from './routes/pedidos.js'
+import pedidoRoutes from './routes/customers.js'
 import cors from 'cors'
 
 const app = express()
@@ -8,7 +7,6 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.get('/produtos', produtosRoutes)
 app.use('/', pedidoRoutes)
 
 app.use((err, req, res, next) => {
