@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import styled from "styled-components";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const banner = require("../../assets/png/banner.png");
 
 export const Container = styled.div`
