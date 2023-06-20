@@ -1,7 +1,6 @@
 import React from "react";
 
 import ButtonStyled from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import styled from "styled-components";
 
 /**
@@ -11,12 +10,11 @@ import styled from "styled-components";
 
 interface ButtonProps {
   variant?: "text" | "outlined" | "contained" | undefined;
-  children: React.ReactNode;
-  isLoading?: boolean;
   type?: "submit" | "button" | "reset" | undefined;
   disabled?: boolean;
   onClick?: () => void;
   color?: "primary" | "secondary" | "default" | undefined;
+  name?: string;
 }
 
 const StyledButton = styled(ButtonStyled)`
@@ -33,11 +31,10 @@ const StyledButton = styled(ButtonStyled)`
 
 export const Button: React.FC<ButtonProps> = ({
   variant = "contained",
-  children,
-  isLoading = false,
   color = "primary",
   type = "button",
   onClick,
+  name,
   disabled = false,
 }) => {
   return (
@@ -48,11 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
     >
-      {isLoading ? (
-        <CircularProgress style={{ color: "#FFF" }} size={25} />
-      ) : (
-        children
-      )}
+      {name}
     </StyledButton>
   );
 };
