@@ -33,10 +33,7 @@ export const updatePedido = (req, res) => {
   const q =
     "UPDATE pedidos SET `name_product` = ?, `description` = FROM pedidos INNER JOIN finalizados ON pedidos.id = finalizados.id ? WHERE `id` = ?";
 
-  const values = [
-    req.body.name_product,
-    req.body.description,
-  ];
+  const values = [req.body.name_product, req.body.description];
 
   db.query(q, [...values, req.params.id], (err) => {
     if (err) return res.json(err);

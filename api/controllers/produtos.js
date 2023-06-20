@@ -11,14 +11,9 @@ export const getProdutos = (_, res) => {
 };
 
 export const addProdutos = (req, res) => {
-  const q =
-    "INSERT INTO produtos(`title`, `description`, `price`) VALUES(?)";
+  const q = "INSERT INTO produtos(`title`, `description`, `price`) VALUES(?)";
 
-  const values = [
-    req.body.title,
-    req.body.description,
-    req.body.price,
-  ];
+  const values = [req.body.title, req.body.description, req.body.price];
 
   db.query(q, [values], (err) => {
     if (err) return res.json(err);
@@ -28,13 +23,9 @@ export const addProdutos = (req, res) => {
 };
 
 export const updateProdutos = (req, res) => {
-  const q =
-    "UPDATE produtos SET `title` = ?, `description` = ? WHERE `id` = ?";
+  const q = "UPDATE produtos SET `title` = ?, `description` = ? WHERE `id` = ?";
 
-  const values = [
-    req.body.title,
-    req.body.description,
-  ];
+  const values = [req.body.title, req.body.description];
 
   db.query(q, [...values, req.params.id], (err) => {
     if (err) return res.json(err);
