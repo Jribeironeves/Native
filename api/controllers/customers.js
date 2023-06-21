@@ -4,9 +4,24 @@ export const getAllCustomers = (_, res) => {
   const q = 'SELECT city, COUNT(*) AS total FROM pedidos GROUP BY city'
 
   db.query(q, (err, data) => {
-    if (err) return res.json(err)
+    if (err) {
+      return res.status(500).json({ error: err.message })
+    }
+    res.json(data)
+  })
+}
 
-    return res.status(200).json(data)
+export const getCityCustomers = (req, res) => {
+  const city = req.params.city
+
+  const q = `SELECT first_name FROM pedidos WHERE city = '${city}'`
+
+  db.query(q, (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: err.message })
+    }
+    const firstNames = data.map(item => item.first_name)
+    res.status(200).json(firstNames)
   })
 }
 
