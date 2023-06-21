@@ -10,16 +10,18 @@ export const getAllCustomers = (_, res) => {
     res.json(data)
   })
 }
-export const getCityCustomers = (req, res) => {
-  const cidade = req.params.cidade
 
-  const q = `SELECT * FROM pedidos WHERE city = '${cidade}'`
+export const getCityCustomers = (req, res) => {
+  const city = req.params.city
+
+  const q = `SELECT first_name FROM pedidos WHERE city = '${city}'`
 
   db.query(q, (err, data) => {
     if (err) {
       return res.status(500).json({ error: err.message })
     }
-    res.status(200).json(data)
+    const firstNames = data.map(item => item.first_name)
+    res.status(200).json(firstNames)
   })
 }
 

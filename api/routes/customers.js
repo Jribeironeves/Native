@@ -11,7 +11,7 @@ const router = express.Router()
 
 router.get('/customers', getAllCustomers)
 
-router.get('/clientes/:cidade', getCityCustomers)
+router.get('/pedidos', getCityCustomers)
 
 router.post('/', addCustomers)
 
