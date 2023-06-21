@@ -3,13 +3,14 @@ import styled from "styled-components";
 const logo = require("../../assets/png/logo.png");
 
 export const Container = styled.header`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px;
+  display: flex;
+  width: 97.35%;
   height: 140px;
-  background: #FFFF;
+  background: #FFF;
+  position: sticky;
+  top: 0;
+  padding: 20px;
+  z-index: 1;
 `;
 
 export const Navigation = styled.div`
@@ -34,5 +35,5 @@ export const Logo = styled.div`
 export const Menu = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 30rem;
+  margin-left: 27.9rem;
 `;
