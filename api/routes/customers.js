@@ -3,12 +3,15 @@ import {
   addCustomers,
   deleteCustomers,
   getAllCustomers,
+  getCityCustomers,
   updateCustomers
 } from '../controllers/customers.js'
 
 const router = express.Router()
 
 router.get('/customers', getAllCustomers)
+
+router.get('/clientes/:cidade', getCityCustomers)
 
 router.post('/', addCustomers)
 
