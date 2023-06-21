@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-undef */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
