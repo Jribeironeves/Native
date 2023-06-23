@@ -7,7 +7,10 @@ export const getAllCustomers = (_, res) => {
     if (err) {
       return res.status(500).json({ error: err.message })
     }
-    res.json(data)
+    if (data.length === 0) {
+      return res.status(404).json({ error: err.message })
+    }
+    res.status(200).json(data)
   })
 }
 
@@ -19,6 +22,9 @@ export const getCityCustomers = (req, res) => {
   db.query(q, (err, data) => {
     if (err) {
       return res.status(500).json({ error: err.message })
+    }
+    if (data.length === 0) {
+      return res.status(404).json({ error: err.message })
     }
     res.status(200).json(data)
   })
@@ -35,11 +41,11 @@ export const getCustomersId = (req, res) => {
     }
 
     if (data.length === 0) {
-      return res.status(404).json({ error: 'Customer not found' })
+      return res.status(404).json({ error: err.message })
     }
 
     const customer = data[0]
-    res.json(customer)
+    res.status(200).json(customer)
   })
 }
 
@@ -50,16 +56,16 @@ export const editCustomers = (req, res) => {
 
   const q = `UPDATE customers SET first_name = '${first_name}', last_name = '${last_name}', email = '${email}', gender = '${gender}', company = '${company}', city = '${city}', title = '${title}' WHERE id = '${id}'`
 
-  db.query(q, (err, result) => {
+  db.query(q, (err, data) => {
     if (err) {
       return res.status(500).json({ error: err.message })
     }
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'Customer not found' })
+    if (data.affectedRows === 0) {
+      return res.status(404).json({ error: err.message })
     }
 
-    res.json({ message: 'Client updated successfully!' })
+    res.status(200).json(data)
   })
 }
 
@@ -70,6 +76,11 @@ export const getDetails = (_, res) => {
     if (err) {
       return res.status(500).json({ error: err.message })
     }
-    res.json(data)
+
+    if (data.length === 0) {
+      return res.status(404).json({ error: err.message })
+    }
+
+    res.status(200).json(data)
   })
 }
