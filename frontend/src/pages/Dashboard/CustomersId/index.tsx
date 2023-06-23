@@ -3,7 +3,6 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   GridContainer,
-  Card,
   StyledCard,
   FieldContainer,
   FieldLabel,
@@ -45,7 +44,7 @@ export const CustomersId: React.FC = () => {
     if (selectedCustomerFromState) {
       setSelectedCustomer(selectedCustomerFromState);
     } else {
-      fetch(`http://localhost:8800/customers/${id}`)
+      fetch(`http://localhost:8800/customers/edit/${id}`)
         .then((response) => response.json())
         .then((data) => {
           setSelectedCustomer(data);
@@ -94,7 +93,7 @@ export const CustomersId: React.FC = () => {
   };
 
   const handleSaveClick = () => {
-    fetch(`http://localhost:8800/customers/${id}`, {
+    fetch(`http://localhost:8800/customers/edit/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
