@@ -64,12 +64,12 @@ export const editCustomers = (req, res) => {
 }
 
 export const getDetails = (_, res) => {
-  const q = 'SELECT * FROM pedidos';
+  const q = 'SELECT * FROM pedidos'
 
   db.query(q, (err, data) => {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ error: err.message })
     }
-    res.json(data);
-  });
+    res.json(data)
+  })
 }
