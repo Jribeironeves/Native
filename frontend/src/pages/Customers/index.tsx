@@ -1,45 +1,36 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Container, PaginationContainer, PaginationButton } from "./styles";
-import { MuiCard } from "../../components/Card";
+import {
+  Container,
+  CardContainer,
+  PaginationContainer,
+  CityInfo,
+  Id,
+  FirstName,
+  LastName,
+  Email,
+  Gender,
+  Company,
+  City,
+  PaginationButton,
+} from "./styles";
 
-export const Dashboard: React.FC = () => {
-  interface ClientsProps {
+export const Customers: React.FC = () => {
+  interface CustomersProps {
     id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    gender: string;
+    company: string;
     city: string;
-    total: number;
+    title: string;
   }
 
-  const [customers, setCustomers] = useState<ClientsProps[]>([]);
-  const [reloadCounter, setReloadCounter] = useState(0);
+  const [customers, setCustomers] = useState<CustomersProps[]>([]);
 
-  useEffect(() => {
-    const getCustomers = async () => {
-      try {
-        const res = await axios.get<ClientsProps[]>(
-          "http://localhost:8800/customers"
-        );
-        setCustomers(res.data);
-      } catch (error) {
-        toast.error("Ocorreu um erro ao buscar os clientes.");
-      }
-    };
-
-    getCustomers();
-  }, [reloadCounter]);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setReloadCounter((prevCounter) => prevCounter + 1);
-    }, 1000); // Tempo em milissegundos (5 segundos aqui) para realizar uma nova requisição
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-
-  const itemsPerPage = 3;
+  const itemsPerPage = 2;
   const totalPages = Math.ceil(customers.length / itemsPerPage);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,13 +52,36 @@ export const Dashboard: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8800/customers/details")
+      .then((response) => {
+        setCustomers(response.data);
+      })
+      .catch((error) => {
+        toast.error("Error fetching data");
+        console.error(error);
+      });
+  }, []);
+  console.log("customers", customers);
   return (
     <>
       <Container>
-        {renderedData.map((item) => (
-          <MuiCard key={item.id} city={item.city} total={item.total} />
+      {renderedData.map((item) => (
+        <>
+        <CardContainer>
+          <CityInfo>
+            <Id>Id: {item.id}</Id>
+            <FirstName>First Name: {item.first_name}</FirstName>
+            <LastName>Last Name: {item.last_name}</LastName>
+            <Email>Email: {item.email}</Email>
+            <Gender>Gender: {item.gender}</Gender>
+            <Company>Company: {item.company}</Company>
+            <City>City: {item.city}</City>
+          </CityInfo>
+        </CardContainer>
+        </>
         ))}
-
         <PaginationContainer>
           {currentPage > 1 && (
             <PaginationButton

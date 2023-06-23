@@ -7,10 +7,10 @@ export const Container = styled.header`
   width: 97.35%;
   height: 140px;
   background: #FFF;
-  position: sticky;
+  /* position: sticky;
   top: 0;
   padding: 20px;
-  z-index: 1;
+  z-index: 1; */
 `;
 
 export const Navigation = styled.div`

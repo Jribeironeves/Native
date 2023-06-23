@@ -5,7 +5,7 @@ const banner = require("../../assets/png/banner.png");
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 900px;
+  height: 563px;
 `;
 
 export const Img = styled.div`
@@ -19,7 +19,7 @@ export const BannerButton = styled.button`
     width: 354px;
     height: 122px;
     cursor: pointer;
-    margin-top: 47.5%;
+    margin-top: 27%;
     margin-left: 38.4%;
     border: #E34630 3.5px solid;
     border-radius: 10px;
