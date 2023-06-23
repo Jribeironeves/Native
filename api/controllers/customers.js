@@ -1,7 +1,7 @@
 import { db } from '../db.js'
 
 export const getAllCustomers = (_, res) => {
-  const q = 'SELECT city, COUNT(*) AS total FROM pedidos GROUP BY city'
+  const q = 'SELECT city, COUNT(*) AS total FROM customers GROUP BY city'
 
   db.query(q, (err, data) => {
     if (err) {
@@ -14,7 +14,7 @@ export const getAllCustomers = (_, res) => {
 export const getCityCustomers = (req, res) => {
   const city = req.params.city
 
-  const q = `SELECT id, first_name, last_name, email, gender, company, city, title FROM pedidos WHERE city = '${city}'`
+  const q = `SELECT id, first_name, last_name, email, gender, company, city, title FROM customers WHERE city = '${city}'`
 
   db.query(q, (err, data) => {
     if (err) {
@@ -27,7 +27,7 @@ export const getCityCustomers = (req, res) => {
 export const getCustomersId = (req, res) => {
   const id = req.params.id
 
-  const q = `SELECT id, first_name, last_name, email, gender, company, city, title FROM pedidos WHERE id = '${id}'`
+  const q = `SELECT id, first_name, last_name, email, gender, company, city, title FROM customers WHERE id = '${id}'`
 
   db.query(q, (err, data) => {
     if (err) {
@@ -35,7 +35,7 @@ export const getCustomersId = (req, res) => {
     }
 
     if (data.length === 0) {
-      return res.status(404).json({ error: 'Cliente não encontrado' })
+      return res.status(404).json({ error: 'Customer not found' })
     }
 
     const customer = data[0]
@@ -48,7 +48,7 @@ export const editCustomers = (req, res) => {
   const { first_name, last_name, email, gender, company, city, title } =
     req.body
 
-  const q = `UPDATE pedidos SET first_name = '${first_name}', last_name = '${last_name}', email = '${email}', gender = '${gender}', company = '${company}', city = '${city}', title = '${title}' WHERE id = '${id}'`
+  const q = `UPDATE customers SET first_name = '${first_name}', last_name = '${last_name}', email = '${email}', gender = '${gender}', company = '${company}', city = '${city}', title = '${title}' WHERE id = '${id}'`
 
   db.query(q, (err, result) => {
     if (err) {
@@ -56,15 +56,15 @@ export const editCustomers = (req, res) => {
     }
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'Cliente não encontrado' })
+      return res.status(404).json({ error: 'Customer not found' })
     }
 
-    res.json({ message: 'Cliente atualizado com sucesso' })
+    res.json({ message: 'Client updated successfully!' })
   })
 }
 
 export const getDetails = (_, res) => {
-  const q = 'SELECT * FROM pedidos'
+  const q = 'SELECT * FROM customers'
 
   db.query(q, (err, data) => {
     if (err) {

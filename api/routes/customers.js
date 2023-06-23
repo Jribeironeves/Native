@@ -1,10 +1,10 @@
 import express from 'express'
 import {
   getAllCustomers,
-  getDetails,
   getCityCustomers,
   getCustomersId,
-  editCustomers
+  editCustomers,
+  getDetails
 } from '../controllers/customers.js'
 
 const router = express.Router()
@@ -17,6 +17,6 @@ router.get('/customers/:city', getCityCustomers)
 
 router.get('/customers/:id', getCustomersId)
 
-router.put('/customers/:id', editCustomers)
+router.put('/customers/edit/:id', editCustomers)
 
 export default router
