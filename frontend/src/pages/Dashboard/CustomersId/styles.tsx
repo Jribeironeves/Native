@@ -22,7 +22,7 @@ export const Card = styled.div`
   }
 `;
 
-export const StyledCard = styled(Card)<{ isEditing: boolean }>` // Utiliza o componente renomeado aqui
+export const StyledCard = styled(Card)<{ isEditing: boolean }>`
   height: ${props => (props.isEditing ? "380px" : "320px")};
 `;
 

@@ -63,7 +63,7 @@ export const Customers: React.FC = () => {
         console.error(error);
       });
   }, []);
-  console.log("customers", customers);
+
   return (
     <>
       <Container>

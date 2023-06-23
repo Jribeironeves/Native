@@ -3,10 +3,6 @@ import React from "react";
 import ButtonStyled from "@material-ui/core/Button";
 import styled from "styled-components";
 
-/**
- * Botão do MaterialUI com pequenos incrementos.
- * Lista de props completa: [Button](https://mui.com/pt/components/buttons/)
- */
 
 interface ButtonProps {
   variant?: "text" | "outlined" | "contained" | undefined;

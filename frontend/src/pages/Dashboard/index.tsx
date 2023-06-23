@@ -12,7 +12,7 @@ export const Dashboard: React.FC = () => {
   }
 
   const [customers, setCustomers] = useState<ClientsProps[]>([]);
-  const [reloadCounter, setReloadCounter] = useState(0);
+
 
   useEffect(() => {
     const getCustomers = async () => {
@@ -27,17 +27,9 @@ export const Dashboard: React.FC = () => {
     };
 
     getCustomers();
-  }, [reloadCounter]);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setReloadCounter((prevCounter) => prevCounter + 1);
-    }, 1000); // Tempo em milissegundos (5 segundos aqui) para realizar uma nova requisição
-
-    return () => {
-      clearInterval(intervalId);
-    };
   }, []);
+
+
 
   const itemsPerPage = 3;
   const totalPages = Math.ceil(customers.length / itemsPerPage);
