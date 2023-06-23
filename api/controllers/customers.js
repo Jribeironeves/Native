@@ -14,55 +14,62 @@ export const getAllCustomers = (_, res) => {
 export const getCityCustomers = (req, res) => {
   const city = req.params.city
 
-  const q = `SELECT first_name FROM pedidos WHERE city = '${city}'`
+  const q = `SELECT id, first_name, last_name, email, gender, company, city, title FROM pedidos WHERE city = '${city}'`
 
   db.query(q, (err, data) => {
     if (err) {
       return res.status(500).json({ error: err.message })
     }
-    const firstNames = data.map(item => item.first_name)
-    res.status(200).json(firstNames)
+    res.status(200).json(data)
   })
 }
 
-export const addCustomers = (req, res) => {
-  const q =
-    'INSERT INTO pedidos(`name_product`, `description`, `amount_product`, `total_order`, `cliente` ) VALUES(?)'
+export const getCustomersId = (req, res) => {
+  const id = req.params.id
 
-  const values = [
-    req.body.name_product,
-    req.body.description,
-    req.body.amount_product,
-    req.body.total_order,
-    req.body.cliente
-  ]
+  const q = `SELECT id, first_name, last_name, email, gender, company, city, title FROM pedidos WHERE id = '${id}'`
 
-  db.query(q, [values], err => {
-    if (err) return res.json(err)
+  db.query(q, (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: err.message })
+    }
 
-    return res.status(200).json('Pedido criado com sucesso.')
+    if (data.length === 0) {
+      return res.status(404).json({ error: 'Cliente não encontrado' })
+    }
+
+    const customer = data[0]
+    res.json(customer)
   })
 }
 
-export const updateCustomers = (req, res) => {
-  const q =
-    'UPDATE pedidos SET `name_product` = ?, `description` = FROM pedidos INNER JOIN finalizados ON pedidos.id = finalizados.id ? WHERE `id` = ?'
+export const editCustomers = (req, res) => {
+  const id = req.params.id
+  const { first_name, last_name, email, gender, company, city, title } =
+    req.body
 
-  const values = [req.body.name_product, req.body.description]
+  const q = `UPDATE pedidos SET first_name = '${first_name}', last_name = '${last_name}', email = '${email}', gender = '${gender}', company = '${company}', city = '${city}', title = '${title}' WHERE id = '${id}'`
 
-  db.query(q, [...values, req.params.id], err => {
-    if (err) return res.json(err)
+  db.query(q, (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: err.message })
+    }
 
-    return res.status(200).json('Pedido atualizado com sucesso.')
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Cliente não encontrado' })
+    }
+
+    res.json({ message: 'Cliente atualizado com sucesso' })
   })
 }
 
-export const deleteCustomers = (req, res) => {
-  const q = 'DELETE FROM pedidos WHERE `id` = ?'
+export const getDetails = (_, res) => {
+  const q = 'SELECT * FROM pedidos';
 
-  db.query(q, [req.params.id], err => {
-    if (err) return res.json(err)
-
-    return res.status(200).json('Pedido deletado com sucesso.')
-  })
+  db.query(q, (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(data);
+  });
 }
